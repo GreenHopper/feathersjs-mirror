@@ -1,0 +1,64 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+
+<!--
+`feathersjs-mirror`
+An element that builts upon app-indexeddb-mirror and combines its functionality with an feathers.js service.
+
+@demo demo/index.html 
+-->
+<dom-module id="feathersjs-mirror">
+  <template>
+    <app-indexeddb-mirror key="{{key}}" data="{{liveData}}" persisted-data="{{data}}"></app-indexeddb-mirror>
+  </template>
+  <script>
+  Polymer({
+    is: 'feathersjs-mirror',
+    properties: {
+      app: {
+        type: Object
+      },
+      service: {
+        type: String
+      },
+      liveData: {
+        type: Object
+      },
+      data: {
+        type: Object,
+        notifies: true
+      },
+      feathersService: {
+        type: Object
+      },
+      key: {
+        type: String
+      }
+    },
+    observers: [
+      'configChanged(app, service)'
+    ],
+    configChanged: function(app, service) {
+      if (app && service && service.length > 0) {
+        this.feathersService = app.service(service);
+      } else {
+        this.feathersService = null;
+      }
+      if (feathersService) {
+        feathersService.on('created', function(newValue) {
+          liveData[newValue._id] = newValue;
+        });
+        feathersService.on('updated', function(newValue) {
+          liveData[newValue._id] = newValue;
+        });
+        feathersService.on('patched', function(newValue) {
+          liveData[newValue._id] = newValue;
+        });
+        feathersService.on('removed', function(newValue) {
+          delete liveData[newValue._id];
+        });
+      }
+    }
+  });
+  </script>
+</dom-module>
