@@ -4,8 +4,8 @@
   "main": "feathersjs-mirror.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.7.0",
-    "feathers-client": "^1.8.0",
-    "app-storage": "PolymerElements/app-storage#^0.9.8"
+    "app-storage": "PolymerElements/app-storage#^0.9.8",
+    "feathersjs-client": "GreenHopper/feathersjs-client"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
