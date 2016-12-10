@@ -1,0 +1,25 @@
+{
+  "name": "public",
+  "homepage": "https://github.com/GreenHopper/feathersjs-mirror",
+  "authors": [
+    "Kaufmann",
+    "Roman <roman.kaufmann.at@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "feathersjs-mirror": "GreenHopper/feathersjs-mirror",
+    "socket.io-client": "^1.7.1",
+    "feathersjs-client": "GreenHopper/feathersjs-client",
+    "paper-input": "PolymerElements/paper-input#^1.1.22",
+    "paper-button": "PolymerElements/paper-button#^1.0.14"
+  }
+}

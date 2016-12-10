@@ -10,11 +10,18 @@
   <link rel="import" href="bower_components/polymer/polymer.html">
   <link rel="import" href="bower_components/feathersjs-client/feathersjs-client.html">
   <link rel="import" href="bower_components/feathersjs-mirror/feathersjs-mirror.html">
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/paper-input/paper-input.html">
 </head>
 
 <body>
   <template id="t" is="dom-bind">
-    <feathersjs-mirror id="mirror" service="notes" key="notes"></feathersjs-mirror>
+    <feathersjs-mirror id="mirror" service="notes" key="notes" data="{{data}}"></feathersjs-mirror>
+    <div>
+      <paper-input id="input" label="Note" value="{{input}}"></paper-input>
+      <paper-button raised id="button">Add</paper-button>
+    </div>
+    <div>{{data}}</div>
   </template>
 </body>
 <script type="text/javascript">
@@ -28,6 +35,14 @@ t.addEventListener('dom-change', function() {
     .configure(feathers.socketio(socket));
 
   var notesService = app.service('notes');
+
+  var b = document.querySelector('#button');
+  var noteInput = document.querySelector('#input');
+  b.addEventListener('click', function() {
+    notesService.create({
+      note: noteInput.value
+    });
+  });
 
   var mirrorDb = document.querySelector('#mirror');
   if (mirrorDb) {
