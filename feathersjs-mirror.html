@@ -45,18 +45,18 @@ An element that builts upon app-indexeddb-mirror and combines its functionality 
       } else {
         this.feathersService = null;
       }
-      if (feathersService) {
-        feathersService.on('created', function(newValue) {
-          liveData[newValue._id] = newValue;
+      if (this.feathersService) {
+        this.feathersService.on('created', function(newValue) {
+          this.liveData[newValue._id] = newValue;
         });
-        feathersService.on('updated', function(newValue) {
-          liveData[newValue._id] = newValue;
+        this.feathersService.on('updated', function(newValue) {
+          this.liveData[newValue._id] = newValue;
         });
-        feathersService.on('patched', function(newValue) {
-          liveData[newValue._id] = newValue;
+        this.feathersService.on('patched', function(newValue) {
+          this.liveData[newValue._id] = newValue;
         });
-        feathersService.on('removed', function(newValue) {
-          delete liveData[newValue._id];
+        this.feathersService.on('removed', function(newValue) {
+          delete this.liveData[newValue._id];
         });
       }
     }

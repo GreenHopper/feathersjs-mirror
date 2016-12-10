@@ -5,7 +5,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.7.0",
     "app-storage": "PolymerElements/app-storage#^0.9.8",
-    "feathersjs-client": "GreenHopper/feathersjs-client"
+    "feathersjs-client": "GreenHopper/feathersjs-client",
+    "socket.io-client": "^1.7.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

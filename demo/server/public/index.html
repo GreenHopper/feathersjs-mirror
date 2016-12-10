@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <title>feathersjs-mirror demo</title>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script type="text/javascript" src="bower_components/socket.io-client/dist/socket.io.js"></script>
+  <link rel="import" href="bower_components/polymer/polymer.html">
+  <link rel="import" href="bower_components/feathersjs-client/feathersjs-client.html">
+  <link rel="import" href="bower_components/feathersjs-mirror/feathersjs-mirror.html">
+</head>
+
+<body>
+  <template id="t" is="dom-bind">
+    <feathersjs-mirror id="mirror" service="notes" key="notes"></feathersjs-mirror>
+  </template>
+</body>
+<script type="text/javascript">
+var socket = io('http://localhost:3030');
+var t = document.querySelector('#t');
+
+// The dom-change event signifies when the template has stamped its DOM.
+t.addEventListener('dom-change', function() {
+  var app = feathers()
+    .configure(feathers.hooks())
+    .configure(feathers.socketio(socket));
+
+  var notesService = app.service('notes');
+
+  var mirrorDb = document.querySelector('#mirror');
+  if (mirrorDb) {
+    mirrorDb.app = app;
+  }
+});
+</script>
+
+</html>
