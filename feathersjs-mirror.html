@@ -22,8 +22,7 @@ An element that builts upon app-indexeddb-mirror and combines its functionality 
         type: String
       },
       liveData: {
-        type: Object,
-        value: {}
+        type: Object
       },
       data: {
         type: Object,
@@ -46,24 +45,48 @@ An element that builts upon app-indexeddb-mirror and combines its functionality 
         this.feathersService = null;
       }
       if (this.feathersService) {
+        var that = this;
         this.feathersService.on('created', function(newValue) {
-          this.liveData[newValue._id] = newValue;
+          that.updateValue(newValue);
         });
         this.feathersService.on('updated', function(newValue) {
-          this.liveData[newValue._id] = newValue;
+          that.updateValue(newValue);
         });
         this.feathersService.on('patched', function(newValue) {
-          this.liveData[newValue._id] = newValue;
+          that.updateValue(newValue);
         });
         this.feathersService.on('removed', function(newValue) {
-          delete this.liveData[newValue._id];
+          that.removeValue(newValue);
         });
-        this.feathersService.find().then(function(notes) {
-          for (id in notes) {
-            this.liveData[id] = notes[id];
+        this.feathersService.find({
+          paginate: false
+        }).then((notes) => {
+          if (notes && (notes.data || notes.length)) {
+            var newValue = {};
+            var array = [];
+            if (notes.data) {
+              array = notes.data;
+            }
+            if (notes.length) {
+              array = notes;
+            }
+            for (var i = 0; i < array.length; i++) {
+              newValue[array[i].id] = array[i];
+            }
+            this.set('liveData', newValue);
+          } else {
+            this.set('liveData', {});
           }
         });
       }
+    },
+    updateValue: function(newValue) {
+      var path = 'liveData.' + newValue.id;
+      this.set(path, newValue);
+    },
+    removeValue: function(newValue) {
+      var path = 'liveData.' + newValue.id;
+      this.set(path, undefined);
     }
   });
   </script>

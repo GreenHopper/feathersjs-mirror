@@ -41,6 +41,8 @@ t.addEventListener('dom-change', function() {
   b.addEventListener('click', function() {
     notesService.create({
       note: noteInput.value
+    }).then(() => {
+      noteInput.value = '';
     });
   });
 
